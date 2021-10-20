@@ -7,7 +7,7 @@
   }
 
   // mysqli_query($connect,"INSERT INTO employees (first_name,last_name,department,email)
-  // VALUES ('Jeff','Dole','Programming','jdole@gmail.com');");
+  // VALUES ('Michael','Jordan','design','mj@gmail.com');");
 
   //Create Result
   $result = mysqli_query($connect,"SELECT * FROM employees");
@@ -18,6 +18,7 @@
   } */
 ?>
 
+<h1>Employees</h1>
 <table width="500" cellpadding="5" cellspacing="5" border="1">
   <tr>
     <th>ID#</th>
@@ -36,3 +37,32 @@
   </tr>
   <?php endwhile; ?>
 </table>
+
+<?php 
+  //Create Result
+  $result = mysqli_query($connect, "SELECT products.name, categories.name AS 'category', products.id AS 'prod_id'
+  FROM products
+  LEFT JOIN categories
+  ON products.category = categories.id")
+?>
+
+<h1>Products</h1>
+<table width="500" cellpadding=5 cellspacing=5 border=1>
+  <tr>
+    <th>ID#</th>
+    <th>Product</th>
+    <th>Category</th>
+  </tr>
+  <?php while($row = mysqli_fetch_array($result)) : ?>
+  <tr>
+    <td><?php echo $row['prod_id']; ?></td>
+    <td><?php echo $row['name']; ?></td>
+    <td><?php echo $row['category']; ?></td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+
+<?php
+  //Close Connection
+  mysqli_close($connect);
+?>
